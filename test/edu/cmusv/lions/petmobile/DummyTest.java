@@ -17,10 +17,11 @@ public class DummyTest {
 
 	@After
 	public void tearDown() {
+		
 	}
 
 	@Test
-	 public void someTest() {
-		 assertEquals(valid, true);
-	 }
+	public void someTest() {
+		assertEquals(valid, true);
+	}
 }
