@@ -1,41 +1,99 @@
 package edu.cmusv.lions.petmobile.util;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DataSource {
 
 	private static final String SERVICE_URL = "http://petlions.herokuapp.com";
 
-	public static JSONArray getProjectList() {
+	public interface JsonResultHandler {
+		void onJsonResult(JSONArray jsonArray);
+
+		void onJsonResult(JSONObject jsonObject);
+		
+		void onInternetFailure();
+	}
+
+	private JsonResultHandler jsonResultHandler = new JsonResultHandler() {
+		@Override
+		public void onJsonResult(JSONArray jsonArray) {
+		}
+
+		@Override
+		public void onJsonResult(JSONObject jsonObject) {
+		}
+
+		@Override
+		public void onInternetFailure() {
+		}
+		
+		
+	};
+
+	public void setJsonResultHandler(JsonResultHandler handler) {
+		this.jsonResultHandler = handler;
+	}
+
+	public void getProjectListAsync() {
 		String url = String.format("%s/projects.json", SERVICE_URL);
-		return JsonParser.getJSONArrayFromUrl(url);
+		makeHttpRequest(url);
 	}
 
-	public static JSONObject getProject(String projectId) {
+	public void getProjectAsync(String projectId) {
 		String url = String.format("%s/projects/%s.json", SERVICE_URL, projectId);
-		return JsonParser.getJSONObjectFromUrl(url);
+		makeHttpRequest(url);
 	}
 
-	public static JSONArray getProjectPhaseList(String projectId) {
+	public void getProjectPhaseListAsync(String projectId) {
 		String url = String.format("%s/projects/%s/project_phases.json", SERVICE_URL, projectId);
-		return JsonParser.getJSONArrayFromUrl(url);
+		makeHttpRequest(url);
 	}
 
-	public static JSONObject getProjectPhase(String projectId, String projectPhaseId) {
+	public void getProjectPhaseAsync(String projectId, String projectPhaseId) {
 		String url = String.format("%s/projects/%s/project_phases/%s.json", SERVICE_URL, projectId, projectPhaseId);
-		return JsonParser.getJSONObjectFromUrl(url);
+		makeHttpRequest(url);
 	}
 
-	public static JSONArray getDelivearbles(String projectId, String projectPhaseId) {
+	public void getDelivearblesAsync(String projectId, String projectPhaseId) {
 		String url = String.format("%s/projects/%s/project_phases/%s/deliverables.json", SERVICE_URL, projectId,
 				projectPhaseId);
-		return JsonParser.getJSONArrayFromUrl(url);
+		makeHttpRequest(url);
 	}
 
-	public static JSONObject getDeliverable(String projectId, String projectPhaseId, String deliverableId) {
+	public void getDeliverableAsync(String projectId, String projectPhaseId, String deliverableId) {
 		String url = String.format("%s/projects/%s/project_phases/%s/deliverables/%s.json", SERVICE_URL, projectId,
 				projectPhaseId, deliverableId);
-		return JsonParser.getJSONObjectFromUrl(url);
+		makeHttpRequest(url);
+	}
+
+	private void makeHttpRequest(String url) {
+		HttpRequestAsyncTask requestTask = new HttpRequestAsyncTask() {
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result);
+				// result will be null if the user does not have an internet
+				// connection
+				if (result != null) {
+					try {
+						if (isJsonArray(result)) {
+							jsonResultHandler.onJsonResult(new JSONArray(result));
+						} else {
+							jsonResultHandler.onJsonResult(new JSONObject(result));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				} else {
+					jsonResultHandler.onInternetFailure();
+				}
+			}
+		};
+		requestTask.execute(url);
+	}
+
+	private boolean isJsonArray(String json) {
+		return json.startsWith("[");
 	}
 }

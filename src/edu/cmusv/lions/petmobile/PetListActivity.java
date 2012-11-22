@@ -15,56 +15,69 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import edu.cmusv.lions.petmobile.util.DataSource;
+import edu.cmusv.lions.petmobile.util.DataSource.JsonResultHandler;
 import edu.cmusv.lions.petmobile.util.ObjectUtils;
 
 public abstract class PetListActivity extends PetActivity {
 
-	protected ArrayList<HashMap<String, String>> list;
+	protected DataSource mDataSource;
+	protected ArrayList<HashMap<String, String>> mList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pet_list);
-		initData();
-		initDisplay();
+		mDataSource = new DataSource();
+		renderList();
 	}
 
-	private void initData() {
-		list = new ArrayList<HashMap<String, String>>();
-		if (isNetworkConnected()) {
-			try {
-				JSONArray jsonList = getJsonData();
-				for (int i = 0; i < jsonList.length(); i++) {
-					JSONObject jsonProject = jsonList.getJSONObject(i);
-					List<String> keys = ObjectUtils.getStringConstants(getConstantsClass());
-					HashMap<String, String> projectAttributes = new HashMap<String, String>();
-					for (String key : keys) {
-						projectAttributes.put(key, jsonProject.getString(key));
-					}
-					list.add(projectAttributes);
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		} else {
-			showMessageDialog("No Internet", "You do not have an internet connection...");
-		}
-	}
-
-	private void initDisplay() {
-		ListView listView = (ListView) findViewById(R.id.list);
-		listView.setAdapter(getListAdapter());
-		listView.setOnItemClickListener(new OnItemClickListener() {
+	private void renderList() {
+		mList = new ArrayList<HashMap<String, String>>();
+		mDataSource.setJsonResultHandler(new JsonResultHandler() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				onItemSelected(list.get(position));
+			public void onJsonResult(JSONArray jsonArray) {
+				try {
+					for (int i = 0; i < jsonArray.length(); i++) {
+						JSONObject jsonProject = jsonArray.getJSONObject(i);
+						List<String> keys = ObjectUtils.getStringConstants(getConstantsClass());
+						HashMap<String, String> projectAttributes = new HashMap<String, String>();
+						for (String key : keys) {
+							String value = jsonProject.getString(key);
+							projectAttributes.put(key, value);
+						}
+						mList.add(projectAttributes);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				ListView listView = (ListView) findViewById(R.id.list);
+				listView.setAdapter(getListAdapter());
+				listView.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						onItemSelected(mList.get(position));
+					}
+				});
+			}
+
+			@Override
+			public void onJsonResult(JSONObject jsonObject) {
+				// no-op
+			}
+
+			@Override
+			public void onInternetFailure() {
+				showMessageDialog("Oops", "You do not have an internet connection.");
 			}
 		});
+		requestJsonData();
 	}
-
+	
 	protected abstract Class<?> getConstantsClass();
 
-	protected abstract JSONArray getJsonData();
+	protected abstract void requestJsonData();
 
 	protected abstract ListAdapter getListAdapter();
 
