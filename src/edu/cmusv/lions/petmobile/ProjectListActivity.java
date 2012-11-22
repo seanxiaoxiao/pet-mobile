@@ -1,22 +1,42 @@
 package edu.cmusv.lions.petmobile;
 
+import java.util.Map;
+
+import org.json.JSONArray;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
+import edu.cmusv.lions.petmobile.domain.Project;
+import edu.cmusv.lions.petmobile.util.DataSource;
 
-public class ProjectListActivity extends Activity {
-
+public class ProjectListActivity extends PetListActivity {
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_project_list);
+		setTitle("Projects");
 	}
-
+	
+	protected Class<?> getConstantsClass() {
+		return Project.class;
+	}
+	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_project_list, menu);
-		return true;
+	protected JSONArray getJsonData() {
+		return DataSource.getProjectList();
 	}
-
+	
+	protected ListAdapter getListAdapter() {
+		return new SimpleAdapter(this, list, R.layout.list_item, new String[] { Project.NAME },
+				new int[] { R.id.list_item_name });
+	}
+	
+	protected void onItemSelected(Map<String, String> selectedItemAttributes) {
+		Intent intent = new Intent(getApplicationContext(), ProjectDetailsActivity.class);
+		intent.putExtra(Project.ID, selectedItemAttributes.get(Project.ID));
+		startActivity(intent);
+	}
+	
 }

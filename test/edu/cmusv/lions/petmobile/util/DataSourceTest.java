@@ -1,8 +1,5 @@
 package edu.cmusv.lions.petmobile.util;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -66,29 +63,10 @@ public class DataSourceTest extends AndroidTestCase {
 	}
 
 	private void testJsonAttributes(JSONObject jsonObject, Class<?> constantsClass) throws JSONException {
-		List<String> keys = getStringConstants(constantsClass);
+		List<String> keys = ObjectUtils.getStringConstants(constantsClass);
 		for (String key : keys) {
 			jsonObject.getString(key);
 		}
 	}
-
-	private List<String> getStringConstants(Class<?> constantsClass) {
-		List<String> stringConstants = new ArrayList<String>();
-		for (Field field : constantsClass.getFields()) {
-			if (Modifier.isStatic(field.getModifiers())) {
-				Object obj;
-				try {
-					obj = field.get(null);
-					if (obj instanceof String) {
-						stringConstants.add(obj.toString());
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		}
-		return stringConstants;
-	}
-
+	
 }
