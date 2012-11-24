@@ -28,7 +28,7 @@ public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_project_details);
+		setContentView(R.layout.activity_project_phase_details);
 		setTitle("Project Phase Details");
 
 		mDataSource = new DataSource();
@@ -38,30 +38,22 @@ public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 		mProjectPhaseId = intent.getStringExtra(ProjectPhase.ID);
 
 		renderDetails();
-		Button phasesBtn = (Button) findViewById(R.id.phases_btn);
-		phasesBtn.setOnClickListener(new OnClickListener() {
+		Button deliverablesBtn = (Button) findViewById(R.id.deliverables_button);
+		deliverablesBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(), ProjectPhaseListActivity.class);
-				intent.putExtra(Project.ID, mProjectPhaseId);
+				intent.putExtra(Project.ID, mProjectId);
 				startActivity(intent);
 			}
 		});
 	}
 
-	/*
-	 * This method will need to change. Right now it is dynamic, but this will
-	 * not give us what we want. We will need to hard-code what attributes we
-	 * expect and in what order. We do not want to display created_at and
-	 * updated_at attributes. We will also have to map ugly ID attributes to
-	 * their actual objects. For example, we need to map a lifecycle_id=5 to
-	 * Lifecycle='Waterfall'.
-	 */
 	protected void renderDetails() {
 		mDataSource.setJsonResultHandler(new JsonResultHandler() {
 			@Override
 			public void onJsonResult(JSONObject jsonObject) {
-				List<String> keys = ObjectUtils.getStringConstants(Project.class);
+				List<String> keys = ObjectUtils.getStringConstants(ProjectPhase.class);
 				for (String key : keys) {
 					try {
 						String value = jsonObject.getString(key);
