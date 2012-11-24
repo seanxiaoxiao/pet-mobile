@@ -32,6 +32,13 @@
         <activity
             android:name="edu.cmusv.lions.petmobile.ProjectDetailsActivity" >
         </activity>
+        <activity
+            android:name="edu.cmusv.lions.petmobile.ProjectPhaseListActivity"
+            android:label="@string/app_name" >
+        </activity>
+		<activity
+            android:name="edu.cmusv.lions.petmobile.ProjectPhaseDetailsActivity" >
+        </activity>
         <uses-library android:name="android.test.runner" />
     </application>
 
