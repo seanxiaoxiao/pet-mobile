@@ -39,7 +39,7 @@ public class ProjectDetailsActivity extends PetDetailsActivity {
 		phasesBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), ProjectDetailsActivity.class);
+				Intent intent = new Intent(getApplicationContext(), ProjectPhaseListActivity.class);
 				intent.putExtra(Project.ID, mProjectId);
 				startActivity(intent);
 			}
