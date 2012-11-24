@@ -12,6 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 /**
  * Used for making an HTTP request. 
@@ -23,6 +24,9 @@ public class HttpRequestAsyncTask extends AsyncTask<String, String, String> {
 
 	@Override
 	protected String doInBackground(String... uri) {
+		
+		Log.i("PET LIONS making http request to ",uri[0] );
+		
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpResponse response;
 		String responseString = null;

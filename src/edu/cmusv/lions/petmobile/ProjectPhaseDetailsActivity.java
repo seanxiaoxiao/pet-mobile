@@ -34,7 +34,7 @@ public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 		mDataSource = new DataSource();
 		mDetailsContainer = (ViewGroup) findViewById(R.id.details_container);
 		Intent intent = getIntent();
-		mProjectId = intent.getStringExtra(Project.ID);
+		mProjectId = intent.getStringExtra(ProjectPhase.PROJECT_ID);
 		mProjectPhaseId = intent.getStringExtra(ProjectPhase.ID);
 
 		renderDetails();
@@ -43,7 +43,9 @@ public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(), ProjectPhaseListActivity.class);
-				intent.putExtra(Project.ID, mProjectId);
+				//intent.putExtra(Project.ID, mProjectId);
+				intent.putExtra(ProjectPhase.PROJECT_ID, mProjectId);
+				intent.putExtra(ProjectPhase.ID, mProjectPhaseId);
 				startActivity(intent);
 			}
 		});

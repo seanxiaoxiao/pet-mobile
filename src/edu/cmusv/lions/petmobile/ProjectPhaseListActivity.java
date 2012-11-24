@@ -38,7 +38,7 @@ public class ProjectPhaseListActivity extends PetListActivity {
 	protected void onItemSelected(Map<String, String> selectedItemAttributes) {
 		Intent intent = new Intent(getApplicationContext(), ProjectPhaseDetailsActivity.class);
 		intent.putExtra(ProjectPhase.ID, selectedItemAttributes.get(ProjectPhase.ID));
-		intent.putExtra(Project.ID, mProjectId);
+		intent.putExtra(ProjectPhase.PROJECT_ID, mProjectId);
 		startActivity(intent);
 	}
 
