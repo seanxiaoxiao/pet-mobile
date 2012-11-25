@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import edu.cmusv.lions.petmobile.domain.Project;
 import edu.cmusv.lions.petmobile.domain.ProjectPhase;
 import edu.cmusv.lions.petmobile.util.DataSource;
 import edu.cmusv.lions.petmobile.util.ObjectUtils;
@@ -42,8 +41,7 @@ public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 		deliverablesBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), ProjectPhaseListActivity.class);
-				//intent.putExtra(Project.ID, mProjectId);
+				Intent intent = new Intent(getApplicationContext(), DeliverableListActivity.class);
 				intent.putExtra(ProjectPhase.PROJECT_ID, mProjectId);
 				intent.putExtra(ProjectPhase.ID, mProjectPhaseId);
 				startActivity(intent);
