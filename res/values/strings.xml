@@ -3,5 +3,6 @@
 
     <string name="app_name">PetMobile</string>
     <string name="view_phases">View Phases</string>
+    <string name="view_deliverables">View Deliverables</string>
 
 </resources>

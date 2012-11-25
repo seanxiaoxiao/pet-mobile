@@ -5,7 +5,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+<<<<<<< HEAD
 @SuppressLint("DefaultLocale")
+=======
+import android.util.Log;
+
+>>>>>>> 6ef5f88461559d3338350110ec0d2534a8748ac6
 public class DataSource {
 
 	private static final String SERVICE_URL = "http://petlions.herokuapp.com";
