@@ -32,7 +32,9 @@
         <activity
             android:name="edu.cmusv.lions.petmobile.ProjectDetailsActivity" >
         </activity>
-        <uses-library android:name="android.test.runner" />
+        <activity android:name="edu.cmusv.lions.petmobile.DeliverableListActivity"></activity>
+        <activity android:name="edu.cmusv.lions.petmobile.DeliverableDetailsActivity"></activity><uses-library android:name="android.test.runner" />
+        
     </application>
 
 </manifest>

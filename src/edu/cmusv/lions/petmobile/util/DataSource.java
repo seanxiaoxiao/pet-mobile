@@ -1,9 +1,11 @@
 package edu.cmusv.lions.petmobile.util;
 
+import android.annotation.SuppressLint;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressLint("DefaultLocale")
 public class DataSource {
 
 	private static final String SERVICE_URL = "http://petlions.herokuapp.com";
@@ -56,14 +58,14 @@ public class DataSource {
 		makeHttpRequest(url);
 	}
 
-	public void getDelivearblesAsync(String projectId, String projectPhaseId) {
-		String url = String.format("%s/projects/%s/project_phases/%s/deliverables.json", SERVICE_URL, projectId,
+	public void getDelivearblesAsync(int projectId, int projectPhaseId) {
+		String url = String.format("%s/projects/%d/project_phases/%d/deliverables.json", SERVICE_URL, projectId,
 				projectPhaseId);
 		makeHttpRequest(url);
 	}
 
-	public void getDeliverableAsync(String projectId, String projectPhaseId, String deliverableId) {
-		String url = String.format("%s/projects/%s/project_phases/%s/deliverables/%s.json", SERVICE_URL, projectId,
+	public void getDeliverableAsync(int projectId, int projectPhaseId, int deliverableId) {
+		String url = String.format("%s/projects/%d/project_phases/%d/deliverables/%d.json", SERVICE_URL, projectId,
 				projectPhaseId, deliverableId);
 		makeHttpRequest(url);
 	}
