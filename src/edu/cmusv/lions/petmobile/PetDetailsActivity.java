@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import edu.cmusv.lions.petmobile.util.DataSource;
 import edu.cmusv.lions.petmobile.util.DataSource.JsonResultHandler;
+import org.apache.commons.lang3.text.WordUtils;
 
 public abstract class PetDetailsActivity extends PetActivity {
 
@@ -28,8 +29,9 @@ public abstract class PetDetailsActivity extends PetActivity {
 			public void onJsonResult(JSONObject jsonObject) {
 				for (String key : getDisplayKeys()) {
 					try {
+						String label = convertJsonKeyToLabel(key);
 						String value = jsonObject.getString(key);
-						addLabelValuePair(key, value);
+						addLabelValuePair(label, value);
 						addSpace();
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -50,6 +52,10 @@ public abstract class PetDetailsActivity extends PetActivity {
 		requestJsonData();
 	}
 
+	protected String convertJsonKeyToLabel(String jsonKey) {
+		return WordUtils.capitalize(jsonKey.replace("_", " "));
+	}
+	
 	protected void addLabelValuePair(String label, String value) {
 		boldLabel(addLabel(label));
 		addLabel(value);
