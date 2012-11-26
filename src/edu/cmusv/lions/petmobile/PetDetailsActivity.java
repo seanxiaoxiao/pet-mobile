@@ -1,5 +1,6 @@
 package edu.cmusv.lions.petmobile;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import edu.cmusv.lions.petmobile.util.DataSource;
 import edu.cmusv.lions.petmobile.util.DataSource.JsonResultHandler;
-import org.apache.commons.lang3.text.WordUtils;
 
 public abstract class PetDetailsActivity extends PetActivity {
 
@@ -35,6 +35,7 @@ public abstract class PetDetailsActivity extends PetActivity {
 						addSpace();
 					} catch (JSONException e) {
 						e.printStackTrace();
+						showMessageDialog("Error:", e.getMessage());
 					}
 				}
 			}
