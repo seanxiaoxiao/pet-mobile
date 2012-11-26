@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/project_phase_id"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+    style="@style/linear_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/details_scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".85" >
+
         <LinearLayout
             android:id="@+id/details_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
+    </ScrollView>
 
-    <Button
-        android:id="@+id/deliverables_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/view_deliverables" />
-    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".15" >
+
+        <Button
+            android:id="@+id/deliverables_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/view_deliverables" />
+    </RelativeLayout>
+
 </LinearLayout>
