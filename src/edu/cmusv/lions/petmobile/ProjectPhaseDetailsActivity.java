@@ -1,25 +1,15 @@
 package edu.cmusv.lions.petmobile;
 
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import edu.cmusv.lions.petmobile.domain.ProjectPhase;
-import edu.cmusv.lions.petmobile.util.DataSource;
-import edu.cmusv.lions.petmobile.util.ObjectUtils;
-import edu.cmusv.lions.petmobile.util.DataSource.JsonResultHandler;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import edu.cmusv.lions.petmobile.domain.ProjectPhase;
 
 public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 
-	private DataSource mDataSource;
 	private ViewGroup mDetailsContainer;
 	private String mProjectId;
 	private String mProjectPhaseId;
@@ -27,10 +17,9 @@ public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_project_phase_details);
 		setTitle("Project Phase Details");
+		setContentView(R.layout.activity_project_phase_details);
 
-		mDataSource = new DataSource();
 		mDetailsContainer = (ViewGroup) findViewById(R.id.details_container);
 		Intent intent = getIntent();
 		mProjectId = intent.getStringExtra(ProjectPhase.PROJECT_ID);
@@ -49,38 +38,19 @@ public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 		});
 	}
 
-	protected void renderDetails() {
-		mDataSource.setJsonResultHandler(new JsonResultHandler() {
-			@Override
-			public void onJsonResult(JSONObject jsonObject) {
-				List<String> keys = ObjectUtils.getStringConstants(ProjectPhase.class);
-				for (String key : keys) {
-					try {
-						String value = jsonObject.getString(key);
-						addLabelValuePair(key, value);
-						addSpace(6);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-
-			@Override
-			public void onJsonResult(JSONArray jsonArray) {
-				// no-op
-			}
-
-			@Override
-			public void onInternetFailure() {
-				showMessageDialog("Oops", "You do not have an internet connection.");
-			}
-		});
-		mDataSource.getProjectPhaseAsync(mProjectId, mProjectPhaseId);
+	@Override
+	protected String[] getDisplayKeys() {
+		return new String[] { ProjectPhase.LIFECYCLE_PHASE_ID, ProjectPhase.PROJECT_ID };
 	}
 
 	@Override
 	protected ViewGroup getDetailsContainer() {
 		return mDetailsContainer;
+	}
+
+	@Override
+	protected void requestJsonData() {
+		mDataSource.getProjectPhaseAsync(mProjectId, mProjectPhaseId);
 	}
 
 }

@@ -25,7 +25,7 @@ public class DeliverableListActivity extends PetListActivity {
 	@Override
 	protected void requestJsonData() {
 		Intent intent = getIntent();
-		mDataSource.getDelivearblesAsync(intent.getStringExtra(ProjectPhase.PROJECT_ID), intent.getStringExtra(ProjectPhase.ID));
+		mDataSource.getDelivearbleListAsync(intent.getStringExtra(ProjectPhase.PROJECT_ID), intent.getStringExtra(ProjectPhase.ID));
 	}
 
 	@Override

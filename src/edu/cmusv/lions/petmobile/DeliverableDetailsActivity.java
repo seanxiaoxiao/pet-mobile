@@ -1,23 +1,14 @@
 package edu.cmusv.lions.petmobile;
 
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import edu.cmusv.lions.petmobile.domain.Deliverable;
-import edu.cmusv.lions.petmobile.domain.ProjectPhase;
-import edu.cmusv.lions.petmobile.util.DataSource;
-import edu.cmusv.lions.petmobile.util.ObjectUtils;
-import edu.cmusv.lions.petmobile.util.DataSource.JsonResultHandler;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import edu.cmusv.lions.petmobile.domain.Deliverable;
+import edu.cmusv.lions.petmobile.domain.ProjectPhase;
+import edu.cmusv.lions.petmobile.util.DataSource;
 
 public class DeliverableDetailsActivity extends PetDetailsActivity {
 
-	private DataSource mDataSource;
 	private ViewGroup mDetailsContainer;
 	private String mDeliverableId;
 	private String mProjectId;
@@ -26,53 +17,32 @@ public class DeliverableDetailsActivity extends PetDetailsActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_deliverable_details);
 		setTitle("Deliverable Details");
+		setContentView(R.layout.activity_deliverable_details);
 
 		mDataSource = new DataSource();
 		mDetailsContainer = (ViewGroup) findViewById(R.id.details_container);
-
 		Intent intent = getIntent();
-		mDeliverableId = intent.getStringExtra(Deliverable.ID);
 		mProjectId = intent.getStringExtra(ProjectPhase.PROJECT_ID);
 		mProjectPhaseId = intent.getStringExtra(Deliverable.PROJECT_PHASE_ID);
+		mDeliverableId = intent.getStringExtra(Deliverable.ID);
 		
 		renderDetails();
 	}
 
-	protected void renderDetails() {
-		mDataSource.setJsonResultHandler(new JsonResultHandler() {
-			@Override
-			public void onJsonResult(JSONObject jsonObject) {
-				List<String> keys = ObjectUtils.getStringConstants(Deliverable.class);
-				for (String key : keys) {
-					try {
-						String value = jsonObject.getString(key);
-						addLabelValuePair(key, value);
-						addSpace(6);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-
-			@Override
-			public void onJsonResult(JSONArray jsonArray) {
-				// no-op
-			}
-
-			@Override
-			public void onInternetFailure() {
-				showMessageDialog("Oops", "You do not have an internet connection.");
-			}
-		});
-		mDataSource.getDeliverableAsync(mProjectId, mProjectPhaseId, mDeliverableId);
+	@Override
+	protected String[] getDisplayKeys() {
+		return new String[] { Deliverable.NAME, Deliverable.DESCRIPTION, Deliverable.DELIVERABLE_TYPE_ID, Deliverable.COMPLEXITY_ID, Deliverable.ESTIMATED_EFFORT, Deliverable.ESTIMATED_PRODUCTION_RATE, Deliverable.ESTIMATED_SIZE, Deliverable.UNIT_OF_MEASURE, Deliverable.PROJECT_PHASE_ID };
 	}
-
+	
 	@Override
 	protected ViewGroup getDetailsContainer() {
 		return mDetailsContainer;
 	}
 
+	@Override
+	protected void requestJsonData() {
+		mDataSource.getDeliverableAsync(mProjectId, mProjectPhaseId, mDeliverableId);
+	}
 
 }

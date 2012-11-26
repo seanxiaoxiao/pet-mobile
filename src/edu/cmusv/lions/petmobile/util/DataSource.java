@@ -56,7 +56,7 @@ public class DataSource {
 		makeHttpRequest(url);
 	}
 
-	public void getDelivearblesAsync(String projectId, String projectPhaseId) {
+	public void getDelivearbleListAsync(String projectId, String projectPhaseId) {
 		String url = String.format("%s/projects/%s/project_phases/%s/deliverables.json", SERVICE_URL, projectId,
 				projectPhaseId);
 		makeHttpRequest(url);
