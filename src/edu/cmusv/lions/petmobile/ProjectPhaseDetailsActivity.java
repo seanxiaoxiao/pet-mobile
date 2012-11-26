@@ -40,7 +40,7 @@ public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 
 	@Override
 	protected String[] getDisplayKeys() {
-		return new String[] { ProjectPhase.LIFECYCLE_PHASE_ID, ProjectPhase.PROJECT_ID };
+		return new String[] { ProjectPhase.NAME, ProjectPhase.PROJECT_NAME };
 	}
 
 	@Override

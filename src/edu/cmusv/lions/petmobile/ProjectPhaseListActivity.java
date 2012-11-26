@@ -31,7 +31,7 @@ public class ProjectPhaseListActivity extends PetListActivity {
 	}
 	
 	protected ListAdapter getListAdapter() {
-		return new SimpleAdapter(this, mList, R.layout.list_item, new String[] { ProjectPhase.Name },
+		return new SimpleAdapter(this, mList, R.layout.list_item, new String[] { ProjectPhase.NAME },
 				new int[] { R.id.list_item_name });
 	}
 	

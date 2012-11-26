@@ -38,7 +38,7 @@ public class ProjectDetailsActivity extends PetDetailsActivity {
 
 	@Override
 	protected String[] getDisplayKeys() {
-		return new String[] { Project.NAME, Project.DESCRIPTION, Project.LIFECYCLE_ID };
+		return new String[] { Project.NAME, Project.DESCRIPTION, Project.LIFECYCLE_NAME };
 	}
 
 	@Override
