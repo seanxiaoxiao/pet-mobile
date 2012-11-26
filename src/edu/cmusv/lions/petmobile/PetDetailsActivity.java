@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -29,10 +30,13 @@ public abstract class PetDetailsActivity extends PetActivity {
 				for (String key : getDisplayKeys()) {
 					try {
 						String value = jsonObject.getString(key);
+						Log.i("Key is", key);
+						Log.i("Value is", value);
 						addLabelValuePair(key, value);
 						addSpace();
 					} catch (JSONException e) {
 						e.printStackTrace();
+						showMessageDialog("Error:", e.getMessage());
 					}
 				}
 			}

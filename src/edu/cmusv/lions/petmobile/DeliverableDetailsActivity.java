@@ -18,21 +18,21 @@ public class DeliverableDetailsActivity extends PetDetailsActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle("Deliverable Details");
+
 		setContentView(R.layout.activity_deliverable_details);
+		mDetailsContainer = (ViewGroup) findViewById(R.id.details_container);
 
 		mDataSource = new DataSource();
-		mDetailsContainer = (ViewGroup) findViewById(R.id.details_container);
 		Intent intent = getIntent();
 		mProjectId = intent.getStringExtra(ProjectPhase.PROJECT_ID);
 		mProjectPhaseId = intent.getStringExtra(Deliverable.PROJECT_PHASE_ID);
 		mDeliverableId = intent.getStringExtra(Deliverable.ID);
-		
 		renderDetails();
 	}
 
 	@Override
 	protected String[] getDisplayKeys() {
-		return new String[] { Deliverable.NAME, Deliverable.DESCRIPTION, Deliverable.DELIVERABLE_TYPE_ID, Deliverable.COMPLEXITY_ID, Deliverable.ESTIMATED_EFFORT, Deliverable.ESTIMATED_PRODUCTION_RATE, Deliverable.ESTIMATED_SIZE, Deliverable.UNIT_OF_MEASURE, Deliverable.PROJECT_PHASE_ID };
+		return new String[] { Deliverable.NAME, Deliverable.DESCRIPTION, Deliverable.DELIVERABLE_TYPE_NAME, Deliverable.COMPLEXITY_NAME, Deliverable.UNIT_OF_MEASURE_NAME, Deliverable.ESTIMATED_EFFORT, Deliverable.ESTIMATED_PRODUCTION_RATE, Deliverable.ESTIMATED_SIZE };
 	}
 	
 	@Override
