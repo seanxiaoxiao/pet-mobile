@@ -15,8 +15,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 /**
- * Used for making an HTTP request. 
- * New versions of android do not allow HTTP requests to be made from the main UI thread.
+ * Used for making an asynchronous HTTP request. New versions of android do not
+ * allow HTTP requests to be made from the main UI thread.
  * 
  * @author mhennessy
  */
@@ -24,9 +24,9 @@ public class HttpRequestAsyncTask extends AsyncTask<String, String, String> {
 
 	@Override
 	protected String doInBackground(String... uri) {
-		
-		Log.i("PET LIONS making http request to ",uri[0] );
-		
+
+		Log.i("PET LIONS making http request to ", uri[0]);
+
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpResponse response;
 		String responseString = null;
@@ -52,7 +52,7 @@ public class HttpRequestAsyncTask extends AsyncTask<String, String, String> {
 		}
 		return responseString;
 	}
-	
+
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);

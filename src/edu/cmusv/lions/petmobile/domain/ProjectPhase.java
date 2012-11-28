@@ -1,5 +1,10 @@
 package edu.cmusv.lions.petmobile.domain;
 
+/**
+ * Constants class for Project Phase JSON keys.
+ * 
+ * @author mhennessy
+ */
 public class ProjectPhase {
 	public static final String ID = "id";
 	public static final String NAME = "name";
