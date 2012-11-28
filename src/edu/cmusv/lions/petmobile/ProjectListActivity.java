@@ -8,6 +8,11 @@ import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import edu.cmusv.lions.petmobile.domain.Project;
 
+/**
+ * Activity for displaying a list of Projects.
+ * 
+ * @author mhennessy
+ */
 public class ProjectListActivity extends PetListActivity {
 	
 	@Override
@@ -16,6 +21,7 @@ public class ProjectListActivity extends PetListActivity {
 		setTitle("Projects");
 	}
 	
+	@Override
 	protected Class<?> getConstantsClass() {
 		return Project.class;
 	}
@@ -25,11 +31,13 @@ public class ProjectListActivity extends PetListActivity {
 		mDataSource.getProjectListAsync();
 	}
 	
+	@Override
 	protected ListAdapter getListAdapter() {
 		return new SimpleAdapter(this, mList, R.layout.list_item, new String[] { Project.NAME },
 				new int[] { R.id.list_item_name });
 	}
 	
+	@Override
 	protected void onItemSelected(Map<String, String> selectedItemAttributes) {
 		Intent intent = new Intent(getApplicationContext(), ProjectDetailsActivity.class);
 		intent.putExtra(Project.ID, selectedItemAttributes.get(Project.ID));

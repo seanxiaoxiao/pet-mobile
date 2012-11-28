@@ -10,6 +10,11 @@ import android.os.Bundle;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
+/**
+ * Activity for displaying a list of Deliverables.
+ * 
+ * @author mhennessy
+ */
 public class DeliverableListActivity extends PetListActivity {
 
 	protected void onCreate(Bundle savedInstanceState) {

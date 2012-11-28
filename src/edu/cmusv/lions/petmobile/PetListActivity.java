@@ -19,6 +19,13 @@ import edu.cmusv.lions.petmobile.util.DataSource;
 import edu.cmusv.lions.petmobile.util.DataSource.JsonResultHandler;
 import edu.cmusv.lions.petmobile.util.ObjectUtils;
 
+/**
+ * Base PET list activity. This class defines methods that all PET list
+ * activities have in common. It also defines common tasks while allowing
+ * subclasses to override steps that vary.
+ * 
+ * @author mhennessy
+ */
 public abstract class PetListActivity extends PetActivity {
 
 	protected DataSource mDataSource;
@@ -32,6 +39,9 @@ public abstract class PetListActivity extends PetActivity {
 		renderList();
 	}
 
+	/**
+	 * Populates the list view with content.
+	 */
 	private void renderList() {
 		mList = new ArrayList<HashMap<String, String>>();
 		mDataSource.setJsonResultHandler(new JsonResultHandler() {
@@ -51,7 +61,7 @@ public abstract class PetListActivity extends PetActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				
+
 				ListView listView = (ListView) findViewById(R.id.list);
 				listView.setAdapter(getListAdapter());
 				listView.setOnItemClickListener(new OnItemClickListener() {
@@ -74,12 +84,26 @@ public abstract class PetListActivity extends PetActivity {
 		});
 		requestJsonData();
 	}
-	
+
+	/**
+	 * @return a class that stores JSON keys as string constants.
+	 */
 	protected abstract Class<?> getConstantsClass();
 
+	/**
+	 * This method should use a data source to request a JSON string.
+	 */
 	protected abstract void requestJsonData();
 
+	/**
+	 * @return the list adapter to be used by the list view.
+	 */
 	protected abstract ListAdapter getListAdapter();
 
+	/**
+	 * Called when an item is selected.
+	 * 
+	 * @param selectedItemAttributes a jsonKey-jsonValue map for the selected JSON object.
+	 */
 	protected abstract void onItemSelected(Map<String, String> selectedItemAttributes);
 }

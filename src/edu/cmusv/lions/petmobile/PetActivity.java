@@ -5,6 +5,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
+/**
+ * Base PET activity. This class defines methods that all PET activities have in common.
+ * 
+ * @author mhennessy
+ */
 public abstract class PetActivity extends Activity {
 
 	protected void showMessageDialog(String title, String message) {

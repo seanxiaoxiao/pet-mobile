@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import edu.cmusv.lions.petmobile.domain.Project;
 
+/**
+ * Activity for displaying details about a Project.
+ * 
+ * @author mhennessy
+ */
 public class ProjectDetailsActivity extends PetDetailsActivity {
 
 	private ViewGroup mDetailsContainer;

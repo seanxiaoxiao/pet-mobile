@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import edu.cmusv.lions.petmobile.domain.ProjectPhase;
 
+/**
+ * Activity for displaying details about a Project Phase.
+ * 
+ * @author mhennessy
+ */
 public class ProjectPhaseDetailsActivity extends PetDetailsActivity {
 
 	private ViewGroup mDetailsContainer;

@@ -7,6 +7,11 @@ import edu.cmusv.lions.petmobile.domain.Deliverable;
 import edu.cmusv.lions.petmobile.domain.ProjectPhase;
 import edu.cmusv.lions.petmobile.util.DataSource;
 
+/**
+ * Activity for displaying details about a Deliverable.
+ * 
+ * @author mhennessy
+ */
 public class DeliverableDetailsActivity extends PetDetailsActivity {
 
 	private ViewGroup mDetailsContainer;
