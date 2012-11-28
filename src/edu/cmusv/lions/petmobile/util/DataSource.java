@@ -12,7 +12,7 @@ public class DataSource {
 		void onJsonResult(JSONArray jsonArray);
 
 		void onJsonResult(JSONObject jsonObject);
-		
+
 		void onInternetFailure();
 	}
 
@@ -28,8 +28,7 @@ public class DataSource {
 		@Override
 		public void onInternetFailure() {
 		}
-		
-		
+
 	};
 
 	public void setJsonResultHandler(JsonResultHandler handler) {
@@ -68,7 +67,7 @@ public class DataSource {
 		makeHttpRequest(url);
 	}
 
-	private void makeHttpRequest(String url) {
+	protected void makeHttpRequest(String url) {
 		HttpRequestAsyncTask requestTask = new HttpRequestAsyncTask() {
 			@Override
 			protected void onPostExecute(String result) {
@@ -93,7 +92,7 @@ public class DataSource {
 		requestTask.execute(url);
 	}
 
-	private boolean isJsonArray(String json) {
+	protected boolean isJsonArray(String json) {
 		return json.startsWith("[");
 	}
 }

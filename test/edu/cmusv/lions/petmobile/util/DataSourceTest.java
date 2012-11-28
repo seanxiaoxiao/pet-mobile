@@ -1,5 +1,6 @@
 package edu.cmusv.lions.petmobile.util;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -63,10 +64,18 @@ public class DataSourceTest extends AndroidTestCase {
 	}
 
 	private void testJsonAttributes(JSONObject jsonObject, Class<?> constantsClass) throws JSONException {
-		List<String> keys = ObjectUtils.getStringConstants(constantsClass);
-		for (String key : keys) {
-			jsonObject.getString(key);
+		List<String> stringConstants = ObjectUtils.getStringConstants(constantsClass);
+		Iterator<?> iterator = jsonObject.keys();
+		while(iterator.hasNext()) {
+			String key = (String) iterator.next();
+			assertTrue(stringConstants.contains(key));
 		}
 	}
-	
+
+	public void testIsJsonArray(String json) {
+		DataSource dataSource = new DataSource();
+		assertEquals(dataSource.isJsonArray(PROJECT_LIST_JSON), true);
+		assertEquals(dataSource.isJsonArray(PROJECT_JSON), false);
+	}
+
 }
