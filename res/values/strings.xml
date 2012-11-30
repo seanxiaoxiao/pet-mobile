@@ -4,5 +4,12 @@
     <string name="app_name">PetMobile</string>
     <string name="view_phases">View Phases</string>
     <string name="view_deliverables">View Deliverables</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">PET Mobile</string>
+    <string name="my_deliverables">Deliverables</string>
+    <string name="add_project">Add project</string>
+    <string name="my_projects">My Projects</string>
+    <string name="log_effort">Log Effort</string>
 
 </resources>

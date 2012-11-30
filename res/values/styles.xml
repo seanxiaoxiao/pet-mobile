@@ -24,5 +24,10 @@
     <style name="linear_layout">
         <item name="android:layout_margin">15dp</item>
     </style>
-    
+     <style name="LionsTheme" parent="AppBaseTheme">
+        <!-- <item name="android:windowBackground">@color/layout_color_blue</item> -->
+    </style>
+    <color name="default_text_color">#FFEAEAEA</color>
+    <color name="default_background_color">#FFEAEAEA</color>
+    <color name="layout_color_blue">#f0ffff</color>
 </resources>
